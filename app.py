@@ -57,3 +57,9 @@ def rsi_scan():
         return f"✅ RSI-Scan abgeschlossen – {hits} Signale"
     except Exception as e:
         return f"❌ Fehler: {e}", 500
+        import os
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
+
