@@ -4,8 +4,8 @@ import math
 import os
 
 # Telegram-Konfiguration
-TELEGRAM_TOKEN = "7599759771:AAGST0fYEGqbCNquQnG1YLxLM9SHGP1dS88"
-CHAT_ID = "1135763176"
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
 app = Flask(__name__)
 WEBHOOK_URL = "https://wtalerts.com/bot/trading_view"
