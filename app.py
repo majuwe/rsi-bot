@@ -1,6 +1,7 @@
 from flask import Flask
 import requests
 import math
+import os
 
 app = Flask(__name__)
 WEBHOOK_URL = "https://wtalerts.com/bot/trading_view"
