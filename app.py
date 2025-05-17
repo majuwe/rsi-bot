@@ -3,6 +3,10 @@ import requests
 import math
 import os
 
+# Telegram-Konfiguration
+TELEGRAM_TOKEN = "7599759771:AAGST0fYEGqbCNquQnG1YLxLM9SHGP1dS88"
+CHAT_ID = "1135763176"
+
 app = Flask(__name__)
 WEBHOOK_URL = "https://wtalerts.com/bot/trading_view"
 
@@ -23,6 +27,19 @@ def bollinger_bands(closes, period=20, stddev_mult=2):
     sma = sum(closes[-period:]) / period
     stddev = math.sqrt(sum((c - sma) ** 2 for c in closes[-period:]) / period)
     return sma - stddev_mult * stddev
+
+def send_telegram(message):
+    url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
+    payload = {
+        "chat_id": CHAT_ID,
+        "text": message
+    }
+    try:
+        requests.post(url, json=payload)
+        message = f"🟢 RSI Signal erkannt\\nCoin: {payload['pair']}\\nRSI: {round(rsi, 2)}\\nPreis: ${round(current_price, 4)}\\nAktion: {payload['action']}"
+send_telegram(message)
+    except Exception as e:
+        print(f"Fehler beim Senden an Telegram: {e}")
 
 @app.route("/")
 def hello():
